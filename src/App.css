@@ -31,6 +31,38 @@
   scrollbar-color: #00CED1 #000080;
 }
 
+.top-mantra-bar {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.top-mantra {
+  position: absolute;
+  top: 0;
+  font-family: 'Cinzel', 'Tiro Devanagari Hindi', serif;
+  font-size: clamp(0.92rem, 2vw, 1.2rem);
+  color: #fff3c4;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+}
+
+.top-left {
+  left: max(12px, env(safe-area-inset-left));
+}
+
+.top-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top-right {
+  right: max(12px, env(safe-area-inset-right));
+}
+
 .closing-section {
   height: 100vh;
   display: flex;
@@ -215,6 +247,14 @@
 }
 
 @media (max-width: 768px) {
+  .top-mantra-bar {
+    top: 8px;
+  }
+
+  .top-mantra {
+    font-size: clamp(0.74rem, 3vw, 0.95rem);
+  }
+
   .circular-mantra {
     width: 350px;
     height: 350px;

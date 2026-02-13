@@ -86,6 +86,13 @@ function App() {
       <AnimatePresence>
         {showWelcome && <WelcomePage onScrollDown={handleScrollDown} />}
       </AnimatePresence>
+      {!showWelcome && (
+        <div className="top-mantra-bar" aria-hidden="true">
+          <span className="top-mantra top-left">ॐ नमः शिवाय</span>
+          <span className="top-mantra top-center">श्री गणेशाय नमः</span>
+          <span className="top-mantra top-right">जय श्री कृष्ण</span>
+        </div>
+      )}
       {!showWelcome && <MusicControl />}
       <Hero eventDate={eventDate} eventDay={eventDay} />
       {events.map((event, index) => (
