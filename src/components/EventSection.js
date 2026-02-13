@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import gsap from 'gsap';
 import './EventSection.css';
 
-const EventSection = ({ event, index, onVisible }) => {
+const EventSection = ({ event, index }) => {
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: false
@@ -15,8 +15,6 @@ const EventSection = ({ event, index, onVisible }) => {
 
   useEffect(() => {
     if (inView) {
-      onVisible();
-      
       // GSAP Timeline for complex animations
       const tl = gsap.timeline();
       
@@ -43,7 +41,7 @@ const EventSection = ({ event, index, onVisible }) => {
         ease: 'power1.inOut'
       });
     }
-  }, [inView, onVisible]);
+  }, [inView]);
 
   const getAnimationVariant = () => {
     return {
