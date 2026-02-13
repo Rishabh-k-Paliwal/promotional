@@ -96,6 +96,17 @@ function App() {
         />
       ))}
       <section className="final-chant-page">
+        {[...Array(18)].map((_, index) => (
+          <span
+            key={index}
+            className="final-petal"
+            style={{
+              '--x': `${(index * 17) % 100}%`,
+              '--delay': `${(index % 9) * 0.7}s`,
+              '--duration': `${10 + (index % 6) * 1.4}s`
+            }}
+          />
+        ))}
         <p className="final-chant-text">{finalChant}</p>
       </section>
     </div>
