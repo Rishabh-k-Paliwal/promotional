@@ -64,7 +64,7 @@ function App() {
     {
       id: 5,
       number: '05',
-      title: 'आनंद का नृत्य',
+      title: 'आनंदमय नृत्य',
       description: 'भक्ति रस में डूबकर किया जाने वाला दिव्य नृत्य और उत्सव',
       time: '10:45 PM - 11:30 PM',
       image: '/images/event5.jpg',
