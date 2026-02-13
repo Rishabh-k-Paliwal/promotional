@@ -6,7 +6,6 @@ import Hero from './components/Hero';
 import EventSection from './components/EventSection';
 
 function App() {
-  const [currentSection, setCurrentSection] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
   
   const eventDate = "3 मार्च 2026";
@@ -91,7 +90,6 @@ function App() {
           key={event.id} 
           event={event} 
           index={index}
-          onVisible={() => setCurrentSection(index + 1)}
         />
       ))}
     </div>
