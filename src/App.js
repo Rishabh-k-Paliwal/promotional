@@ -8,9 +8,10 @@ import MusicControl from './components/MusicControl';
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
-  
+
   const eventDate = "3 मार्च 2026";
   const eventDay = "मंगलवार";
+  const finalChant = '\u0939\u093e\u0925\u0940 \u0918\u094b\u095c\u093e \u092a\u093e\u0932\u0915\u0940,\u091c\u092f \u0915\u0928\u094d\u0939\u0948\u092f\u093e \u0932\u093e\u0932 \u0915\u0940 \u0965';
 
   const handleScrollDown = () => {
     setShowWelcome(false);
@@ -36,9 +37,9 @@ function App() {
     {
       id: 2,
       number: '02',
-      title: 'कीर्तन',
-      description: 'हरे कृष्ण महामंत्र का मधुर और भक्तिमय सामूहिक कीर्तन',
-      time: '9:30 AM - 10:00 AM',
+      title: 'नरसिंह कवच पाठ',
+      description: 'भगवान नरसिंह के दिव्य कवच का सामूहिक पाठ और रक्षा-प्रार्थना',
+      time: '9:30 AM - 9:50 AM',
       image: '/images/event2.jpg',
       color: '#f7931e'
     },
@@ -47,7 +48,7 @@ function App() {
       number: '03',
       title: 'श्री कृष्ण और उनके भक्तों की कथा',
       description: 'भगवान कृष्ण की दिव्य लीलाओं और भक्तों की अद्भुत कथाएं',
-      time: '10:00 AM - 10:45 AM',
+      time: '9:50 AM - 10:45 AM',
       image: '/images/event3.jpg',
       color: '#ffd700'
     },
@@ -56,7 +57,7 @@ function App() {
       number: '04',
       title: 'पुष्प होली',
       description: 'सुगंधित फूलों से खेली जाने वाली पवित्र और रंगीन होली',
-      time: '10:45 AM - 11:00 AM',
+      time: '10:45 AM - 11:30 AM',
       image: '/images/event4.jpg',
       color: '#ff69b4'
     },
@@ -88,12 +89,15 @@ function App() {
       {!showWelcome && <MusicControl />}
       <Hero eventDate={eventDate} eventDay={eventDay} />
       {events.map((event, index) => (
-        <EventSection 
-          key={event.id} 
-          event={event} 
+        <EventSection
+          key={event.id}
+          event={event}
           index={index}
         />
       ))}
+      <section className="final-chant-page">
+        <p className="final-chant-text">{finalChant}</p>
+      </section>
     </div>
   );
 }

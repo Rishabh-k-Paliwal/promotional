@@ -72,8 +72,8 @@ const Hero = ({ eventDate, eventDay }) => {
           <motion.div 
             className="sanskrit-text"
           >
-            <div className="sanskrit-line">हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे</div>
-            <div className="sanskrit-line">हरे राम हरे राम राम राम हरे हरे</div>
+            <div className="sanskrit-line">हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ||</div>
+            <div className="sanskrit-line">हरे राम हरे राम राम राम हरे हरे ||</div>
           </motion.div>
 
           <div className="peacock-feather-right">
