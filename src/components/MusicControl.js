@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import './MusicControl.css';
 
@@ -6,41 +6,80 @@ const MusicControl = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  const toggleMusic = () => {
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) {
+      return undefined;
+    }
+
+    let cleaned = false;
+
+    const tryAutoPlay = async () => {
+      if (cleaned || !audio.paused) {
+        return;
+      }
+
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        // Browser can block autoplay with sound; fallback listeners handle this.
+      }
+    };
+
+    const handleFirstInteraction = () => {
+      tryAutoPlay();
+    };
+
+    tryAutoPlay();
+    window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    window.addEventListener('keydown', handleFirstInteraction, { once: true });
+
+    return () => {
+      cleaned = true;
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+    };
+  }, []);
+
+  const toggleMusic = async () => {
+    if (!audioRef.current) {
+      return;
+    }
+
     if (isPlaying) {
       audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch(e => console.log('Audio play failed:', e));
+      setIsPlaying(false);
+      return;
     }
-    setIsPlaying(!isPlaying);
+
+    try {
+      await audioRef.current.play();
+      setIsPlaying(true);
+    } catch (error) {
+      console.log('Audio play failed:', error);
+    }
   };
 
   return (
     <>
-      <motion.div 
-        className="music-label"
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        {isPlaying ? '⏸️ संगीत रोकें' : '🎵 संगीत चलाएं'}
-      </motion.div>
-      
       <motion.button
-        className="music-control"
+        type="button"
+        className={`music-floating-button ${isPlaying ? 'playing' : ''}`}
         onClick={toggleMusic}
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ 
-          scale: [1, 1.15, 1],
-          boxShadow: [
-            '0 0 40px rgba(255, 215, 0, 1), 0 0 80px rgba(255, 107, 53, 0.6)',
-            '0 0 80px rgba(255, 215, 0, 1), 0 0 160px rgba(255, 107, 53, 1)',
-            '0 0 40px rgba(255, 215, 0, 1), 0 0 80px rgba(255, 107, 53, 0.6)'
-          ]
-        }}
-        transition={{ duration: 2, repeat: Infinity }}
+        aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        transition={{ duration: 0.35 }}
       >
-        {isPlaying ? '⏸️' : '▶️'}
+        <svg viewBox="0 0 24 24" className="music-icon" aria-hidden="true">
+          <path d="M10 17a3 3 0 1 0 2 2.83V8.83l7-1.4V14a3 3 0 1 0 2 2.83V5l-11 2.2V17z" />
+        </svg>
+        <span className="music-status-dot" />
       </motion.button>
 
       <audio ref={audioRef} loop>

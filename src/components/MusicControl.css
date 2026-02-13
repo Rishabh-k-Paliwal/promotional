@@ -1,72 +1,51 @@
-.music-control {
+.music-floating-button {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 1000;
-  background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
-  border: 5px solid #fff;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  z-index: 1200;
+  width: clamp(52px, 12vw, 62px);
+  height: clamp(52px, 12vw, 62px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  background: linear-gradient(140deg, rgba(10, 18, 38, 0.94), rgba(24, 38, 74, 0.88));
+  color: #fff5cc;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
-  color: #fff;
-  outline: none;
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(5px);
 }
 
-.music-control::before {
-  content: '';
+.music-floating-button.playing {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34), 0 0 0 2px rgba(255, 222, 123, 0.4);
+}
+
+.music-icon {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}
+
+.music-status-dot {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  border: 4px solid rgba(255, 215, 0, 0.5);
+  top: 9px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  animation: ripple 2s ease-out infinite;
+  background: #9aa5bc;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes ripple {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
+.music-floating-button.playing .music-status-dot {
+  background: #7dff8f;
+  box-shadow: 0 0 12px rgba(125, 255, 143, 0.9);
 }
 
-.music-label {
-  position: fixed;
-  bottom: 155px;
-  right: 30px;
-  z-index: 1000;
-  background: linear-gradient(135deg, #ff6b35, #ffd700);
-  color: #fff;
-  padding: 15px 30px;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 1.3rem;
-  box-shadow: 0 8px 30px rgba(255, 107, 53, 0.7);
-  border: 3px solid #fff;
-}
-
-@media (max-width: 768px) {
-  .music-control {
-    width: 80px;
-    height: 80px;
-    font-size: 2.5rem;
-    bottom: 25px;
-    right: 25px;
-  }
-  
-  .music-label {
-    bottom: 120px;
-    right: 20px;
-    font-size: 1rem;
-    padding: 12px 24px;
+@media (max-width: 640px) {
+  .music-floating-button {
+    right: 10px;
+    bottom: max(12px, env(safe-area-inset-bottom));
   }
 }

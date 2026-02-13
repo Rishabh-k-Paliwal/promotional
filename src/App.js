@@ -4,6 +4,7 @@ import './App.css';
 import WelcomePage from './components/WelcomePage';
 import Hero from './components/Hero';
 import EventSection from './components/EventSection';
+import MusicControl from './components/MusicControl';
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -84,6 +85,7 @@ function App() {
       <AnimatePresence>
         {showWelcome && <WelcomePage onScrollDown={handleScrollDown} />}
       </AnimatePresence>
+      {!showWelcome && <MusicControl />}
       <Hero eventDate={eventDate} eventDay={eventDay} />
       {events.map((event, index) => (
         <EventSection 

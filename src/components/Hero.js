@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import './Hero.css';
@@ -6,8 +6,6 @@ import './Hero.css';
 const Hero = ({ eventDate, eventDay }) => {
   const glowRef = useRef(null);
   const titleRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useRef(null);
 
   useEffect(() => {
     // GSAP animations for glow effect
@@ -25,31 +23,7 @@ const Hero = ({ eventDate, eventDay }) => {
       { scale: 0.5, opacity: 0, rotationY: 180 },
       { scale: 1, opacity: 1, rotationY: 0, duration: 2, ease: 'back.out(1.7)' }
     );
-
-    // Autoplay music when component mounts
-    const playAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(e => {
-          console.log('Autoplay prevented, user interaction needed:', e);
-          setIsPlaying(false);
-        });
-      }
-    };
-
-    // Try to play after a short delay
-    const timer = setTimeout(playAudio, 1000);
-
-    return () => clearTimeout(timer);
   }, []);
-
-  const toggleMusic = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch(e => console.log('Audio play failed:', e));
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <section className="hero">
@@ -165,77 +139,6 @@ const Hero = ({ eventDate, eventDay }) => {
           </div>
         </motion.div>
       </motion.div>
-
-      {/* Music Control on Hero */}
-      <motion.div 
-        className="hero-music-control"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2, duration: 0.5 }}
-      >
-        <motion.button
-          className="music-button"
-          onClick={toggleMusic}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <svg width="45" height="55" viewBox="0 0 100 150" fill="none">
-            <defs>
-              <linearGradient id="musicFeatherGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#4169E1', stopOpacity: 1 }} />
-                <stop offset="30%" style={{ stopColor: '#00CED1', stopOpacity: 1 }} />
-                <stop offset="60%" style={{ stopColor: '#32CD32', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#FFD700', stopOpacity: 1 }} />
-              </linearGradient>
-              <radialGradient id="eyeGradient" cx="50%" cy="50%">
-                <stop offset="0%" style={{ stopColor: '#FFD700', stopOpacity: 1 }} />
-                <stop offset="30%" style={{ stopColor: '#00CED1', stopOpacity: 1 }} />
-                <stop offset="60%" style={{ stopColor: '#4169E1', stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: '#000080', stopOpacity: 1 }} />
-              </radialGradient>
-            </defs>
-            {/* Feather stem */}
-            <path d="M 50 20 Q 48 80 45 140" stroke="#8B4513" strokeWidth="3" fill="none"/>
-            
-            {/* Outer feather barbs - left side */}
-            <path d="M 20 50 Q 35 45 50 50" stroke="url(#musicFeatherGradient)" strokeWidth="2" fill="none" opacity="0.8"/>
-            <path d="M 15 60 Q 32 55 50 60" stroke="url(#musicFeatherGradient)" strokeWidth="2" fill="none" opacity="0.7"/>
-            <path d="M 18 70 Q 34 65 50 70" stroke="url(#musicFeatherGradient)" strokeWidth="1.5" fill="none" opacity="0.6"/>
-            <path d="M 22 80 Q 36 75 50 80" stroke="url(#musicFeatherGradient)" strokeWidth="1.5" fill="none" opacity="0.5"/>
-            
-            {/* Outer feather barbs - right side */}
-            <path d="M 80 50 Q 65 45 50 50" stroke="url(#musicFeatherGradient)" strokeWidth="2" fill="none" opacity="0.8"/>
-            <path d="M 85 60 Q 68 55 50 60" stroke="url(#musicFeatherGradient)" strokeWidth="2" fill="none" opacity="0.7"/>
-            <path d="M 82 70 Q 66 65 50 70" stroke="url(#musicFeatherGradient)" strokeWidth="1.5" fill="none" opacity="0.6"/>
-            <path d="M 78 80 Q 64 75 50 80" stroke="url(#musicFeatherGradient)" strokeWidth="1.5" fill="none" opacity="0.5"/>
-            
-            {/* Feather eye - multiple layers for depth */}
-            <ellipse cx="50" cy="35" rx="24" ry="30" fill="url(#musicFeatherGradient)" opacity="0.9"/>
-            <ellipse cx="50" cy="35" rx="18" ry="22" fill="url(#eyeGradient)" opacity="0.95"/>
-            <ellipse cx="50" cy="35" rx="12" ry="15" fill="#4169E1" opacity="0.9"/>
-            <ellipse cx="50" cy="35" rx="7" ry="9" fill="#000080"/>
-            <ellipse cx="52" cy="33" rx="3" ry="4" fill="#FFD700"/>
-            <ellipse cx="53" cy="32" rx="1.5" ry="2" fill="#FFF"/>
-            
-            {/* Inner feather details */}
-            <path d="M 28 42 Q 39 38 50 42" stroke="#00CED1" strokeWidth="1" fill="none" opacity="0.6"/>
-            <path d="M 72 42 Q 61 38 50 42" stroke="#00CED1" strokeWidth="1" fill="none" opacity="0.6"/>
-            
-            {isPlaying && (
-              <>
-                {/* Pause bars when playing */}
-                <rect x="42" y="30" width="4" height="10" fill="#fff" opacity="0.9"/>
-                <rect x="54" y="30" width="4" height="10" fill="#fff" opacity="0.9"/>
-              </>
-            )}
-          </svg>
-        </motion.button>
-        <p className="music-label">Switch on Audio</p>
-      </motion.div>
-
-      <audio ref={audioRef} loop autoPlay>
-        <source src="/audio/mahamantra.mp3" type="audio/mpeg" />
-      </audio>
 
       {/* Lotus Flower Petals Rain */}
       {[...Array(60)].map((_, i) => (
