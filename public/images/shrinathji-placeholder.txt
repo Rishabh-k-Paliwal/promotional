@@ -1,0 +1,9 @@
+Please add a Shrinathji image here named: shrinathji.jpg
+
+This image will appear in the center of the rotating mantra circle on the welcome page.
+
+Recommended:
+- Square image (1:1 ratio)
+- High quality
+- Clear image of Shrinathji
+- Minimum 500x500 pixels

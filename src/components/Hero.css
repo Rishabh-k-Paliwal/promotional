@@ -1,0 +1,330 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.divine-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 206, 209, 0.4) 0%, rgba(65, 105, 225, 0.3) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 40px;
+  max-width: 1200px;
+  margin-top: -15vh;
+}
+
+.sanskrit-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 3rem;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.peacock-feather-left,
+.peacock-feather-right {
+  width: 80px;
+  height: 120px;
+  animation: featherFloat 4s ease-in-out infinite;
+}
+
+.peacock-feather-left {
+  transform: rotate(-15deg);
+}
+
+.peacock-feather-right {
+  transform: rotate(15deg);
+}
+
+@keyframes featherFloat {
+  0%, 100% { transform: translateY(0) rotate(-15deg); }
+  50% { transform: translateY(-10px) rotate(-15deg); }
+}
+
+.peacock-feather-right {
+  animation: featherFloatRight 4s ease-in-out infinite;
+}
+
+@keyframes featherFloatRight {
+  0%, 100% { transform: translateY(0) rotate(15deg); }
+  50% { transform: translateY(-10px) rotate(15deg); }
+}
+
+.feather-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.sanskrit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sanskrit-line {
+  font-family: 'Cinzel', 'Tiro Devanagari Hindi', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #4169E1 0%, #00CED1 25%, #32CD32 50%, #FFD700 75%, #4169E1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: 7rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #4169E1 0%, #00CED1 30%, #32CD32 60%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.hero-subtitle {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00CED1 0%, #32CD32 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 3rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.mantra {
+  font-size: 2.2rem;
+  line-height: 3rem;
+  color: #fff;
+  font-weight: 600;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 30px;
+  border: 4px solid rgba(255, 215, 0, 0.7);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.event-info {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.info-separator {
+  font-size: 2.5rem;
+  background: linear-gradient(180deg, #4169E1 0%, #00CED1 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 300;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-label {
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #00CED1 0%, #32CD32 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+.info-value {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #4169E1 0%, #00CED1 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.hero-music-control {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.music-button {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 4px solid transparent;
+  background-image: linear-gradient(135deg, #1a1a2e, #16213e), 
+                    linear-gradient(135deg, #4169E1, #00CED1, #32CD32, #FFD700);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.music-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 206, 209, 0.6), 0 0 30px rgba(65, 105, 225, 0.4);
+}
+
+.music-label {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    linear-gradient(90deg, #4169E1, #00CED1, #32CD32, #FFD700);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.lotus-petal {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(ellipse at center, #ffb6c1 0%, #ff69b4 50%, #ff1493 100%);
+  border-radius: 50% 0 50% 0;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+  transform-origin: center;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .hero-content {
+    margin-top: -10vh;
+  }
+
+  .sanskrit-header {
+    gap: 20px;
+    margin-bottom: 2rem;
+  }
+
+  .peacock-feather-left,
+  .peacock-feather-right {
+    width: 50px;
+    height: 80px;
+  }
+
+  .sanskrit-line {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .event-info {
+    gap: 20px;
+  }
+
+  .info-label {
+    font-size: 1rem;
+  }
+
+  .info-value {
+    font-size: 1.4rem;
+  }
+  
+  .mantra {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    padding: 2rem;
+  }
+
+  .hero-music-control {
+    bottom: 30px;
+    right: 30px;
+  }
+
+  .music-button {
+    width: 75px;
+    height: 75px;
+  }
+
+  .music-label {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+}
