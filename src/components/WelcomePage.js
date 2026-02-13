@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import './WelcomePage.css';
 
@@ -10,23 +10,61 @@ const WelcomePage = ({ onScrollDown }) => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
+    document.body.style.top = '0';
     
     const handleWheel = (e) => {
-      if (!isScrolling && e.deltaY > 0) {
+      if (!isScrolling && Math.abs(e.deltaY) > 10) {
+        e.preventDefault();
         setIsScrolling(true);
         onScrollDown();
       }
     };
 
+    const handleTouch = (e) => {
+      const touch = e.touches[0];
+      const startY = touch.clientY;
+      
+      const handleTouchMove = (moveEvent) => {
+        const moveTouch = moveEvent.touches[0];
+        const deltaY = startY - moveTouch.clientY;
+        
+        if (!isScrolling && deltaY > 50) {
+          moveEvent.preventDefault();
+          setIsScrolling(true);
+          onScrollDown();
+          window.removeEventListener('touchmove', handleTouchMove);
+        }
+      };
+      
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      
+      const handleTouchEnd = () => {
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
+      };
+      
+      window.addEventListener('touchend', handleTouchEnd);
+    };
+
     window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouch, { passive: false });
     
     return () => {
       window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouch);
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
+      document.body.style.top = '';
     };
   }, [onScrollDown, isScrolling]);
+
+  const handleClick = () => {
+    if (!isScrolling) {
+      setIsScrolling(true);
+      onScrollDown();
+    }
+  };
 
   return (
     <motion.div 
@@ -72,7 +110,8 @@ const WelcomePage = ({ onScrollDown }) => {
           className="scroll-indicator"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          style={{ pointerEvents: 'auto' }}
+          style={{ pointerEvents: 'auto', cursor: 'pointer' }}
+          onClick={handleClick}
         >
           <p>Scroll Down</p>
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF9933" strokeWidth="2">
